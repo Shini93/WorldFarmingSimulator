@@ -1,0 +1,9 @@
+0.2:
+
+-addBuilding now costs ressis
+-added function to substract cost from storage through function in storage
+-Colors now globally changable
+-Added culture point counter for village and player
+-Added timer for buildingmanager to check every X seconds the ressources instead of every frame
+-Added Ladebalken function for ressi (top right corner), as well as Ladebalken for timer
+-Added drawTimer functionality
