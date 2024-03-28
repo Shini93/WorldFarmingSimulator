@@ -14,9 +14,15 @@ Each village can build troops and spys.
 Milestones:
 
 -[x] multiple players on same machine
+
 -[x] village 
+
 -[x] Ressources can be build and upgraded
+
 -[ ] Buildings can be build and upgraded (Only some are implemented yet)
+
 -[ ] troops to build
+
 -[ ] Islands with boni
+
 -[ ] Savestates
