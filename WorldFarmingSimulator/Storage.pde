@@ -33,10 +33,11 @@ class Storage {
 
   void drawRessBalken() {
     int offsetY = 30;
+    int offsetX = 60;
     int w = round(width-posBalken.x-10);
     for (int i = 0; i < Ress.length - 1; i++) {
-      drawLadebalken(int(posBalken.x), int(posBalken.y+i*20 + offsetY),w,15,float(Ress[i]),float(maxCapacity),true);
+      drawLadebalken(int(posBalken.x) - offsetX, int(posBalken.y+i*20 + offsetY),w,15,float(Ress[i]),float(maxCapacity),true);
     }
-    drawLadebalken(int(posBalken.x), int(posBalken.y+3*20 + offsetY),w,15,float(Ress[3]),float(maxKorn),true);
+    drawLadebalken(int(posBalken.x) - offsetX, int(posBalken.y+3*20 + offsetY),w,15,float(Ress[3]),float(maxKorn),true);
   }
 }

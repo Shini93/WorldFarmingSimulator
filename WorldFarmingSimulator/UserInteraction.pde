@@ -54,13 +54,7 @@ void updateRessource() {
     return;
   if (sc_activeRessource().lvlUpRess() == false)
     return;
-  for (int i=0; i<5; i++) {
-    if ( sc_activeVillage().timer[i].timeInSec<=0) {
-      sc_activeVillage().timer[i].addRessTimer(sc_activeRessource().lvlCost()[5], sc_activeRessource());
-      sc_activeVillage().timer[i].ress.toLvl = true;
-      break;
-    }
-  }
+  sc_activeVillage().activateTimer(sc_activeRessource());
   view.selView = 0;
 }
 
@@ -69,12 +63,6 @@ void updateBuilding() {
     return;
   if (sc_activeBuilding().lvlUpBuilding() == false)
     return;
-  for (int i=0; i<3; i++) {
-    if ( sc_activeVillage().timer[i].timeInSec<=0) {
-      sc_activeVillage().timer[i].addBuildingTimer(sc_activeBuilding().lvlCost()[5], sc_activeBuilding());
-      sc_activeVillage().timer[i].build.toLvl = true;
-      break;
-    }
-  }
+  sc_activeVillage().activateTimer(sc_activeBuilding(), true);
   view.selView = 2;
 }

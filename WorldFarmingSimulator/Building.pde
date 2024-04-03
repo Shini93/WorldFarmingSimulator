@@ -11,7 +11,6 @@ class Building {
   boolean canLvlUp = false;
   int[] Cost = new int[6];
   Building() {
-
   }
 
   //returns update variables for village
@@ -35,7 +34,7 @@ class Building {
     cost[3] = Cost[3] * ( 1 + round(pow(level, 1.4)));
     cost[Bewohner] = Cost[4] * ( 1 + floor(level*0.6));
     cost[Time] = round(sc_activeVillage().TimeFaktor*(Cost[5]+round(level*1.5*Cost[5])));
-    cost[Kultur] = round(serverTimeFact*(cost[Kultur]+round((level - 1)*1.5*cost[Kultur])));
+    cost[Kultur] = round(serverTimeFact*(cost[Kultur]+round((level)*1.5*cost[Kultur])));
 
     return cost;
   }
@@ -83,6 +82,18 @@ class Building {
       return true;
     }
     return false;
+  }
+
+  /********************
+   *Levels Up Building
+   *******************/
+  void levelUpNoCost() {
+    level++;
+    Upgrade();
+    int[] c = lvlCost();
+    a_player[Player].doerfer.get(Village).c_RessourceManager.a_CulturePointsPerDay += c[Kultur];
+    a_player[Player].doerfer.get(Village).population += c[Bewohner];
+    sc_activeBuildMgr().updateBuildingLvlUp();
   }
 }
 
@@ -135,7 +146,6 @@ class Rohstofflager extends Building {
     }
     return false;
   }
-
 }
 
 /*************************************/
@@ -167,7 +177,6 @@ class Kornspeicher extends Building {
     }
     return false;
   }
-
 }
 
 /**************************************/
@@ -189,7 +198,6 @@ class Kaserne extends Building {
   void Upgrade() {
     TimeFactorTroops-=0.05/(level+1);
   }
-
 }
 
 /**************************************/
@@ -211,7 +219,6 @@ class Stall extends Building {
   void Upgrade() {
     TimeFactorHorses-=0.05/(level+1);
   }
-
 }
 
 /**************************************/
@@ -233,7 +240,6 @@ class Schmiede extends Building {
   void Upgrade() {
     BonusSchmiede-=0.05/(level+1);
   }
-
 }
 
 /**************************************/

@@ -1,4 +1,4 @@
-/**************************** //<>// //<>//
+/**************************** //<>// //<>// //<>//
  *Manages all Buildings
  *Upgrades
  *accessing right buildings
@@ -19,29 +19,28 @@ class BuildingManager {
     Village = _Village;
     checkLvlUpTimer.addTimer(10);    //checks every 10 seconds
   }
-  
-  void updateBuildings(){
+
+  void updateBuildings() {
     if (view.selView != view.buildings)
       return;
-    if(checkLvlUpTimer.update() == true){
+    if (checkLvlUpTimer.update() == true) {
       updateBuildingLvlUp();
     }
   }
 
-  void updateBuildingLvlUp(){
-     for(int b = 0; b < A_buildings.size(); b++){
-        A_buildings.get(b).canLvlUp = A_buildings.get(b).canLvlUp();
-     }
+  void updateBuildingLvlUp() {
+    for (int b = 0; b < A_buildings.size(); b++) {
+      A_buildings.get(b).canLvlUp = A_buildings.get(b).canLvlUp();
+    }
   }
-  
-  boolean canUpgrade(int building){
+
+  boolean canUpgrade(int building) {
     return A_buildings.get(building).canLvlUp;
   }
 
   //returns updated skills of upgraded building
   float findUpgrade(String building) {
     int buildingID = findBuilding(building);
-    println(building);
     return A_buildings.get(buildingID).findUpgrade();
   }
 
@@ -79,37 +78,57 @@ class BuildingManager {
 
   //adds Building to village
   void addBuilding(String building) {
-    Building dummy = new Hauptgebaude(Player, Village);
-    Boolean canBuild = false;
-    if (building == "Hauptgebaude") {
-      dummy = new Hauptgebaude(Player, Village);
-      sc_activeVillage().TimeFaktor = dummy.findUpgrade();
-    } else if (building == "Rohstofflager") {
-      dummy = new Rohstofflager(Player, Village);
-    } else if (building == "Kornspeicher") {
-      dummy = new Kornspeicher(Player, Village);
-    } else if (building == "Kaserne") {
-      dummy = new Kaserne(Player, Village);
-    } else if (building == "Stall") {
-      dummy = new Stall(Player, Village);
-    } else if (building == "Schmiede") {
-      dummy = new Schmiede(Player, Village);
-    } else if (building == "Akademie") {
-      dummy = new Akademie(Player, Village);
-    }
+    Building dummy = getBuildingClass(building);
     int[] c = getInitCost(dummy.id);
+    Boolean canBuild = false;
     canBuild = sc_activeStorage().canBuild(c);
-    
+
     if (canBuild == true) {
-      A_buildings.add(dummy);
+      sc_activeVillage().activateTimer(dummy, false);
       sc_activeStorage().substractCost(c);
-      sc_activeRessMgr().a_CulturePointsPerDay += c[Kultur];
-      if(building == "Rohstofflager")
-        sc_activeRessMgr().storage.maxCapacity += int(dummy.findUpgrade());
-      else if (building == "Kornspeicher") 
-        sc_activeRessMgr().storage.maxKorn += int(dummy.findUpgrade());
       updateBuildingLvlUp();
     }
+  }
+
+  void addBuildingFromSave(String building, int neededLevel) {
+    Building newBuilding = getBuildingClass(building); //<>//
+    a_player[Player].doerfer.get(Village).c_BuildingManager.A_buildings.add(newBuilding);
+    
+    if (building.equals("Rohstofflager"))
+        a_player[Player].doerfer.get(Village).c_RessourceManager.storage.maxCapacity += int(newBuilding.findUpgrade());
+      else if (building.equals("Kornspeicher"))
+        a_player[Player].doerfer.get(Village).c_RessourceManager.storage.maxKorn += int(newBuilding.findUpgrade());
+    
+     //<>//
+    for (int l = 0; l < neededLevel; l++) {
+      a_player[Player].doerfer.get(Village).c_BuildingManager.A_buildings.get(a_player[Player].doerfer.get(Village).c_BuildingManager.A_buildings.size()-1).levelUpNoCost();
+      
+      if (building.equals("Rohstofflager"))
+        a_player[Player].doerfer.get(Village).c_RessourceManager.storage.maxCapacity += int(newBuilding.findUpgrade());
+      else if (building.equals("Kornspeicher"))
+        a_player[Player].doerfer.get(Village).c_RessourceManager.storage.maxKorn += int(newBuilding.findUpgrade());
+    }
+  }
+
+  Building getBuildingClass(String building) {
+    Building dummy = new Hauptgebaude(Player, Village);
+    if (building.equals("Hauptgebaude")) {
+      dummy = new Hauptgebaude(Player, Village);
+      sc_activeVillage().TimeFaktor = dummy.findUpgrade();
+    } else if (building.equals("Rohstofflager")) {
+      dummy = new Rohstofflager(Player, Village);
+    } else if (building.equals("Kornspeicher")) {
+      dummy = new Kornspeicher(Player, Village);
+    } else if (building.equals("Kaserne")) {
+      dummy = new Kaserne(Player, Village);
+    } else if (building.equals("Stall")) {
+      dummy = new Stall(Player, Village);
+    } else if (building.equals("Schmiede")) {
+      dummy = new Schmiede(Player, Village);
+    } else if (building.equals("Akademie")) {
+      dummy = new Akademie(Player, Village);
+    }
+    return dummy;
   }
 }
 
@@ -129,7 +148,7 @@ int[] getInitCost(int id) {
     cost[2] = 150;
     cost[3] = 170;
     cost[4] = 2;
-    cost[5] = 200;
+    cost[5] = 2;
     cost[Kultur] = 3;
   } else if (id == 2) {
     cost[0] = 200;

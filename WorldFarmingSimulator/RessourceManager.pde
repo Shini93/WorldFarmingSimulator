@@ -6,7 +6,6 @@ class RessourceManager {
   int village = 0;
 
   //Rohstofffelder
-  int[] Ressfields = {4, 4, 4, 6};
   int culturePointsVill;
   Rohstoffeld[][] allRess = new Rohstoffeld[4][];
 
@@ -38,6 +37,19 @@ class RessourceManager {
     count = setupRohstoffelder(allRess[1], byte(1), count);
     count = setupRohstoffelder(allRess[2], byte(2), count);
     setupRohstoffelder(allRess[3], byte(3), count);
+  }
+  
+  void fillStorageAfterTime (long seconds){
+    for(int r = 0; r < 4; r++){
+       int RessPlus = int(a_RohstoffPerHour[r]*seconds/3600);
+       println(RessPlus);
+       println("s "+seconds);
+      if (RessPlus != 0) {
+        storage.Ress[r] += RessPlus;
+        a_timeSinceUpdate[r] = millis();
+      }
+    }
+    storage.Update();
   }
 
   //erstellt rohstofffelder

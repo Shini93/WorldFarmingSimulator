@@ -1,3 +1,14 @@
+0.3:
+-Fixed problem with adding new building
+-Added some JSON functionality
+--Saves buildings
+--Saves Ressis
+--Saves ressi quantities
+--Added time
+--Calculate seconds passed since last save
+-loads data from json
+-Added extra infos on screen
+
 0.2:
 
 -addBuilding now costs ressis

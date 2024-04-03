@@ -1,4 +1,4 @@
-class Timer {
+class Timer { //<>//
   int timeInSec = 0;
   int interval = 0;
   int lastTime = millis();
@@ -8,6 +8,7 @@ class Timer {
   Spieler player;
   int type = 0; //normal, ress, building, troops
   boolean repeat = false;
+  boolean lvlUp = false;
   Timer(int time) {
     timeInSec= time;
   }
@@ -30,10 +31,12 @@ class Timer {
     ress = _ress;
     type = 1;
   }
-  void addBuildingTimer(int duration, Building _build) {
+  void addBuildingTimer(int duration, Building _build, Dorf vill, boolean lvlUp) {
     timeInSec = duration;
     interval = duration;
     build = _build;
+    village = vill;
+    this.lvlUp = lvlUp;
     type = 2;
   }
   void addCultureTimer(int duration, Spieler player, Dorf village) {
@@ -60,7 +63,20 @@ class Timer {
           ress.levelUp();
           ress.toLvl = false;
         } else if (type == 2) {
-          build.levelUp();
+          if (lvlUp == false) {
+            village.c_BuildingManager.A_buildings.add(build);
+            int[] c = getInitCost(build.id);
+            //village.c_RessourceManager.storage.substractCost(c);
+            village.c_RessourceManager.a_CulturePointsPerDay += c[Kultur];
+            village.c_BuildingManager.updateBuildingLvlUp();
+            village.population += c[Bewohner];
+          } else {
+            build.levelUp();
+          }
+          if (build.S_name == "Rohstofflager")
+            village.c_RessourceManager.storage.maxCapacity += int(build.findUpgrade());
+          else if (build.S_name == "Kornspeicher")
+            village.c_RessourceManager.storage.maxKorn += int(build.findUpgrade());
           build.toLvl = false;
         }
       }
@@ -69,6 +85,7 @@ class Timer {
   }
 
   boolean intervalRestarted() {
+    
     return true;
   }
 
@@ -80,8 +97,8 @@ class Timer {
       text = ress.Name() + " " + ress.level + 1 + " " + timeInSec;
     else if (type ==2)
       text = build.S_name + " " + build.level + 1 + " " + timeInSec;
-      
-    pg_overlay.text(text,x, y);
-    drawLadebalken(x,y,w,h,timeInSec,interval,false);
+
+    pg_overlay.text(text, x, y);
+    drawLadebalken(x, y, w, h, timeInSec, interval, false);
   }
 }

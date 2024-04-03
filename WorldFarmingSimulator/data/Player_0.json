@@ -1,0 +1,63 @@
+[
+  {
+    "villages": 1,
+    "fallenTroops": 0,
+    "culture": 0
+  },
+  [{
+    "Month": 4,
+    "Year": 2024,
+    "Minute": 42,
+    "Second": 47,
+    "Hour": 7,
+    "Day": 3
+  }],
+  {
+    "RessQuantity": [{
+      "Getreide": 6,
+      "Eisen": 4,
+      "Holz": 4,
+      "Lehm": 4
+    }],
+    "RessLevel_1": [{
+      "ID_2": 0,
+      "ID_3": 0,
+      "ID_0": 0,
+      "ID_1": 0
+    }],
+    "RessLevel_0": [{
+      "ID_2": 0,
+      "ID_3": 0,
+      "ID_0": 1,
+      "ID_1": 0
+    }],
+    "village ID": 0,
+    "RessLevel_3": [{
+      "ID_4": 1,
+      "ID_5": 1,
+      "ID_2": 0,
+      "ID_3": 1,
+      "ID_0": 0,
+      "ID_1": 0
+    }],
+    "Ress": [{
+      "Getreide": 262,
+      "Eisen": 531,
+      "Holz": 423,
+      "Lehm": 151
+    }],
+    "RessLevel_2": [{
+      "ID_2": 0,
+      "ID_3": 0,
+      "ID_0": 0,
+      "ID_1": 0
+    }],
+    "Buildings": [{
+      "0": "Hauptgebaude_0_0",
+      "1": "Rohstofflager_1_1",
+      "buildingCount": "2"
+    }],
+    "Population": 8,
+    "CultureVill": 0
+  }
+]

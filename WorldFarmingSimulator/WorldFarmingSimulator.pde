@@ -1,3 +1,4 @@
+import java.util.Calendar;
 /**********************
  *Glob Variablen
  **********************/
@@ -10,26 +11,29 @@ Button btn_back;                         //Button für lvlUps
 Button btn_switchPlayer;                         //Button für lvlUp
 Button btn_toggleVillRess;                         //Button für lvlUps
 Button btn_AddBuilding;                         //Button für lvlUps
+
+Timer saveTimer;
 float serverTimeFact = 1;
 int activePlayer = 0;                      //Player to play
-Byte windows = 0;
-Byte android = 1;
 
-Byte Holz = 0;
-Byte Lehm = 1;
-Byte Eisen = 2;
-Byte Korn = 3;
-Byte Bewohner = 4;
-Byte Time = 5;
-Byte Kultur =6;
+final static Byte windows = 0;
+final static Byte android = 1;
 
+final static Byte Holz = 0;
+final static Byte Lehm = 1;
+final static Byte Eisen = 2;
+final static Byte Korn = 3;
+final static Byte Bewohner = 4;
+final static Byte Time = 5;
+final static Byte Kultur =6;
+
+final static int OK = 0;
+final static int NO = 1;
+final static int ALERT = 2;
 
 Byte operatingSystem = windows;
 
 color[] colorPalette = {#00FF00,200,#FF0000};
-final static int OK = 0;
-final static int NO = 1;
-final static int ALERT = 2;
 
 View view;
 
@@ -51,14 +55,20 @@ void setup() {
   initInterface();
   
   startGame();
+  //saveJSON();
+  
 }
 
 void startGame(){
   loadSavestate();
   setInitValues();
+  
+  saveTimer = new Timer(true);
+  saveTimer.addTimer(10);
 }
 
 void loadSavestate(){
+  loadJSON();
 }
 
 void setInitValues(){
@@ -67,7 +77,7 @@ void setInitValues(){
 
 void loadPlayer() {
   a_player[0] = new Spieler("Tobi", 0);
-  a_player[1] = new Spieler("Vera-Chan", 1);
+  a_player[1] = new Spieler("Vera", 1);
 }
 void debugAddValues() {
   //sc_activeVillage().c_BuildingManager.addBuilding("Rohstofflager");
@@ -101,4 +111,8 @@ void draw() {
 
   //Updates the user interface
   updatepg_overlay();
+  
+  if(saveTimer.update() == true){
+    saveJSON();
+  }
 }

@@ -8,7 +8,7 @@ class Rohstoffeld{
   int Player = 0;
   int Village = 0;
   boolean toLvl = false;
-
+  String S_name = "";
   
   Rohstoffeld(byte Typs, int _Player, int _Village){
     Typ = Typs;
@@ -37,6 +37,8 @@ class Rohstoffeld{
     a_player[Player].doerfer.get(Village).c_RessourceManager.a_RohstoffPerHour[Typ] += RessPerHour;
     a_player[Player].doerfer.get(Village).c_RessourceManager.a_CulturePointsPerDay += lvlCost()[Kultur];
     a_player[Player].doerfer.get(Village).population += lvlCost()[4];
+    
+    sc_activeBuildMgr().updateBuildingLvlUp();
   }
   
   int levelPlus(){

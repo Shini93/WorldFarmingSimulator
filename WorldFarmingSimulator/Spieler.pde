@@ -3,6 +3,7 @@ class Spieler{
   int PlayerID = 0;
   int activeVillage = 0;
   int CulturPointsGlobal = 0;
+  int fallenTroops = 0;
   ArrayList <Dorf> doerfer = new ArrayList <Dorf>();
   Spieler(String _Name, int _PlayerID){
     Name = _Name;

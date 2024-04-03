@@ -52,7 +52,7 @@ class View {
   }
 
   void drawRessSel() {
-    drawCost(sc_activeRessource().lvlCost());
+    drawCost(sc_activeRessource().S_name,sc_activeRessource().lvlCost());
   }
 
   void drawBuildings() {
@@ -67,9 +67,9 @@ class View {
     }
   }
 
-  void drawCost(int[] cost) {
+  void drawCost(String name, int[] cost) {
     btn_levelUp.DrawButton();      //Updates actual RessiField
-    pg_overlay.text(sc_activeBuilding().S_name, 100, 100);
+    pg_overlay.text(name, 300, 100);
     pg_overlay.text("HolzKosten : " + cost[0], 20, 260);
     pg_overlay.text("LehmKosten : " + cost[1], 20, 280);
     pg_overlay.text("EisenKosten : " + cost[2], 20, 300);
@@ -80,7 +80,7 @@ class View {
   }
 
   void drawBuildingSel() {
-    drawCost(sc_activeBuilding().lvlCost());
+    drawCost(sc_activeBuilding().S_name,sc_activeBuilding().lvlCost());
   }
 
   void drawNewBuildingSel() {
