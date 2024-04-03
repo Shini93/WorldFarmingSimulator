@@ -1,9 +1,10 @@
 class View {
-  Byte ressFields = 0;
-  Byte ressSelect = 1;
-  Byte buildings = 2;
-  Byte buildingSelect = 3;
-  Byte newBuildingSel = 4;
+  final Byte ressFields = 0;
+  final Byte ressSelect = 1;
+  final Byte buildings = 2;
+  final Byte buildingSelect = 3;
+  final Byte newBuildingSel = 4;
+  final Byte newbuildingSelect = 5;
 
   Byte selView = 0;
 
@@ -28,6 +29,8 @@ class View {
       drawBuildingSel();
     else if (selView == newBuildingSel)
       drawNewBuildingSel();
+    else if (selView == newbuildingSelect)
+      drawnewBuildingSel();
   }
 
   void drawRessFields() {
@@ -80,6 +83,10 @@ class View {
   }
 
   void drawBuildingSel() {
+    drawCost(sc_activeBuilding().S_name,sc_activeBuilding().lvlCost());
+  }
+  
+  void drawnewBuildingSel() {
     drawCost(sc_activeBuilding().S_name,sc_activeBuilding().lvlCost());
   }
 

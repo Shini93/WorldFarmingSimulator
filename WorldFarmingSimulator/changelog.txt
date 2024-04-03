@@ -1,3 +1,8 @@
+0.4:
+-Added timer with buildings and ressources to JSON
+-Can load timer now
+-Calculates ressources and village timer since newstart
+
 0.3:
 -Fixed problem with adding new building
 -Added some JSON functionality

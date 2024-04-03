@@ -42,7 +42,7 @@ class Dorf {
 
     //Timer instances
     for (int i=0; i<3; i++)
-      timer[i] = new Timer();
+      timer[i] = new Timer(Player, id);
   }
 
   //updates storage and timer

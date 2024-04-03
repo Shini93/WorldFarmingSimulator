@@ -1,23 +1,32 @@
 class Timer { //<>//
   int timeInSec = 0;
   int interval = 0;
-  int lastTime = millis();
+  double lastTime = millis();
   Rohstoffeld ress;
   Building build;
   Dorf village;
   Spieler player;
+  int aPlayer = 0;
+  int aVill = 0;
+  int buildingID = 0;
   int type = 0; //normal, ress, building, troops
   boolean repeat = false;
   boolean lvlUp = false;
+  int ressType = -1;
+  int startLvl = 0;
+  
   Timer(int time) {
     timeInSec= time;
+
   }
-  Timer() {
-    // timeInSec.append(3);
+  Timer(int p, int v) {
+    aPlayer = p;
+    aVill = v;
   }
 
-  Timer(boolean repeat) {
+  Timer( boolean repeat) {
     this.repeat = repeat;
+
   }
 
   void addTimer(int duration) {
@@ -30,6 +39,8 @@ class Timer { //<>//
     interval = duration;
     ress = _ress;
     type = 1;
+    ressType = ress.Typ;
+    startLvl = ress.level;
   }
   void addBuildingTimer(int duration, Building _build, Dorf vill, boolean lvlUp) {
     timeInSec = duration;
@@ -38,6 +49,8 @@ class Timer { //<>//
     village = vill;
     this.lvlUp = lvlUp;
     type = 2;
+    buildingID = build.id;
+    startLvl = build.level;
   }
   void addCultureTimer(int duration, Spieler player, Dorf village) {
     timeInSec = duration;
@@ -48,7 +61,7 @@ class Timer { //<>//
   }
 
   boolean update() {
-    if (timeInSec<=0) {
+    if (timeInSec<=0) { //<>//
       if (repeat == true) {
         timeInSec = interval;
         return intervalRestarted();

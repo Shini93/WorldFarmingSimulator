@@ -10,6 +10,8 @@ class Building {
   boolean toLvl = false;
   boolean canLvlUp = false;
   int[] Cost = new int[6];
+  float special = 0.0;
+  String specialName;
   Building() {
   }
 
@@ -99,42 +101,45 @@ class Building {
 
 /**************************************/
 class Hauptgebaude extends Building {
-  float TimeFactor = 0.9;
+  
   Hauptgebaude(int _Player, int _Village) {
     S_name = "Hauptgebaude";
     Player = _Player;
     Village = _Village;
     id = 0;
+    special = 0.9;
+    specialName = "Bauzeit";
     Cost = getInitCost(id);
   }
   //@Override public
   float findUpgrade() {
-    return TimeFactor;
+    return special;
   }
   ////@Override
   void Upgrade() {
-    TimeFactor-=0.1/(level+1);
+    special-=0.1/(level+1);
   }
 }
 
 /************************************/
 class Rohstofflager extends Building {
-  int StorageSize = 400;
   Rohstofflager(int _Player, int _Village) {
     S_name = "Rohstofflager";
     Player = _Player;
     Village = _Village;
     id = 1;
+    special = 400;
+    specialName = "Storagesize";
     Cost = getInitCost(id);
   }
 
   ////@Override
   float findUpgrade() {
-    return StorageSize;
+    return special;
   }
   ////@Override
   void Upgrade() {
-    StorageSize+=100*level;
+    special+=100*level;
   }
   //@Override
   boolean levelUp() {
@@ -150,22 +155,23 @@ class Rohstofflager extends Building {
 
 /*************************************/
 class Kornspeicher extends Building {
-  int KornSize = 400;
   Kornspeicher(int _Player, int _Village) {
     S_name = "Kornspeicher";
     Player = _Player;
     Village = _Village;
     id = 2;
+    special = 400;
+    specialName = "Kornsize";
     Cost = getInitCost(id);
   }
 
   //@Override
   float findUpgrade() {
-    return KornSize;
+    return special;
   }
   //@Override
   void Upgrade() {
-    KornSize+=100*level;
+    special+=100*level;
   }
   //@Override
   boolean levelUp() {
@@ -181,84 +187,84 @@ class Kornspeicher extends Building {
 
 /**************************************/
 class Kaserne extends Building {
-  float TimeFactorTroops = 0.975;
-
   Kaserne(int _Player, int _Village) {
     S_name = "Kaserne";
     Player = _Player;
     Village = _Village;
+    special = 0.975;
+    specialName = "Troop building speed";
     id = 3;
     Cost = getInitCost(id);
   }
   //@Override
   float findUpgrade() {
-    return TimeFactorTroops;
+    return special;
   }
   //@Override
   void Upgrade() {
-    TimeFactorTroops-=0.05/(level+1);
+    special-=0.05/(level+1);
   }
 }
 
 /**************************************/
 class Stall extends Building {
-  float TimeFactorHorses = 0.975;
-
   Stall(int _Player, int _Village) {
     S_name = "Stall";
     Player = _Player;
     Village = _Village;
     id = 4;
+    special = 0.975;
+    specialName = "Horses building speed";
     Cost = getInitCost(id);
   }
   //@Override
   float findUpgrade() {
-    return TimeFactorHorses;
+    return special;
   }
   //@Override
   void Upgrade() {
-    TimeFactorHorses-=0.05/(level+1);
+    special-=0.05/(level+1);
   }
 }
 
 /**************************************/
 class Schmiede extends Building {
-  float BonusSchmiede = 0.975;
-
   Schmiede(int _Player, int _Village) {
     S_name = "Schmiede";
     Player = _Player;
     Village = _Village;
     id = 5;
+    special = 0.975;
+    specialName = "smithery bonus";
     Cost = getInitCost(id);
   }
   //@Override
   float findUpgrade() {
-    return BonusSchmiede;
+    return special;
   }
   //@Override
   void Upgrade() {
-    BonusSchmiede-=0.05/(level+1);
+    special-=0.05/(level+1);
   }
 }
 
 /**************************************/
 class Akademie extends Building {
-  float TimeFactorResearch = 0.975;
-
   Akademie(int _Player, int _Village) {
     S_name = "Akademie";
     Player = _Player;
     Village = _Village;
     id = 6;
+    special = 0.975;
+    specialName = "Research speed";
     Cost = getInitCost(id);
   }
   //@Override
   float findUpgrade() {
-    return TimeFactorResearch;
+    return special;
   }
   //@Override
   void Upgrade() {
-    TimeFactorResearch-=0.05/(level+1);
+    special-=0.05/(level+1);
   }
 }

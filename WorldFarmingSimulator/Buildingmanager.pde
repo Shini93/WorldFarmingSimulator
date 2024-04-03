@@ -4,13 +4,14 @@
  *accessing right buildings
  *upgrading Village ressources
  *****************************/
+ 
 class BuildingManager {
   int Player = 0;
   int Village = 0;
-
   //Has all available buildings inside -> pops out if building is removed from village
   ArrayList <Building> A_buildings = new ArrayList <Building>();
   String[] buldNames = {"Hauptgebaude", "Rohstofflager", "Kornspeicher", "Kaserne", "Stall", "Schmiede", "Akademie"};
+  
   Timer checkLvlUpTimer = new Timer(true);    //repeats
 
   //Konstruktor
@@ -91,7 +92,7 @@ class BuildingManager {
   }
 
   void addBuildingFromSave(String building, int neededLevel) {
-    Building newBuilding = getBuildingClass(building); //<>//
+    Building newBuilding = getBuildingClass(building);
     a_player[Player].doerfer.get(Village).c_BuildingManager.A_buildings.add(newBuilding);
     
     if (building.equals("Rohstofflager"))
@@ -130,7 +131,13 @@ class BuildingManager {
     }
     return dummy;
   }
+  
+  Building getBuildingClass(int ID) {
+    return getBuildingClass(buldNames[ID]);
+  }
 }
+
+  
 
 int[] getInitCost(int id) {
   int[] cost = new int[7];
@@ -148,7 +155,7 @@ int[] getInitCost(int id) {
     cost[2] = 150;
     cost[3] = 170;
     cost[4] = 2;
-    cost[5] = 2;
+    cost[5] = 200;
     cost[Kultur] = 3;
   } else if (id == 2) {
     cost[0] = 200;

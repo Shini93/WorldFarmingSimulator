@@ -14,9 +14,9 @@ Boolean sc_findBuildingToBuild() {
     return false;
   for (int i = 0; i < sc_activeBuildMgr().buldNames.length; i++) {
     if (mouseY > (60 + (i) * 30) && mouseY < ( 60 + (i+1) * 30)) {
-
-      sc_activeBuildMgr().addBuilding(sc_activeBuildMgr().buldNames[i]);
-      view.selView = 2;
+      Building build = sc_activeBuildMgr().getBuildingClass((sc_activeBuildMgr().buldNames[i]));
+      a_player[activePlayer].doerfer.get(a_player[activePlayer].activeVillage).activeBuilding = build;
+      view.selView = 5;
       return true;
     }
   }
@@ -30,6 +30,9 @@ void updateButtons() {
     }
     if (view.selView == 3) {
       updateBuilding();
+    }
+    if (view.selView == 5) {
+      addBuilding();
     }
   } else if (btn_switchPlayer.isFired()) {
     btn_switchPlayer.text = a_player[activePlayer].Name;
@@ -47,6 +50,11 @@ void updateButtons() {
       btn_toggleVillRess.text = "Village";
     }
   }
+}
+
+void addBuilding(){
+  sc_activeBuildMgr().addBuilding(sc_activeVillage().activeBuilding.S_name);
+  view.selView = view.buildings;
 }
 
 void updateRessource() {
