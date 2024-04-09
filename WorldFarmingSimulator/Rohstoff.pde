@@ -16,14 +16,22 @@ class Rohstoffeld{
     Village = _Village;
     
     //Startproduction for each ress
-    if(Typ == Holz)
+    if(Typ == Holz){
       RessPerHour = 300;
-    else if(Typ == Lehm)
+      S_name = "Holz";
+    }
+    else if(Typ == Lehm){
       RessPerHour = 300;
-    else if(Typ == Eisen)
+      S_name = "Lehm";
+    }
+    else if(Typ == Eisen){
       RessPerHour = 300;
-    else if(Typ == Korn)
+      S_name = "Eisen";
+    }
+    else if(Typ == Korn){
       RessPerHour = 500;
+      S_name = "Getreide";
+    }
   }
 
   String Name(){

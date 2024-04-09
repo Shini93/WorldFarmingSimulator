@@ -60,6 +60,7 @@ class Dorf {
         sc_activeVillage().timer[i].addBuildingTimer(b.lvlCost()[5], b, this, lvlUp);
         sc_activeVillage().timer[i].build.toLvl = true;
         sc_activeVillage().timer[i].repeat = false;
+        //saveJSON();
         break;
       }
     }
@@ -71,6 +72,7 @@ class Dorf {
         sc_activeVillage().timer[i].addRessTimer(r.lvlCost()[5], r);
         sc_activeVillage().timer[i].ress.toLvl = true;
         sc_activeVillage().timer[i].repeat = false;
+        //saveJSON();
         break;
       }
     }

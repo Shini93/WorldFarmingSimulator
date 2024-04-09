@@ -33,7 +33,7 @@ final static int ALERT = 2;
 
 Byte operatingSystem = windows;
 
-color[] colorPalette = {#00FF00,200,#FF0000};
+color[] colorPalette = {#008800,100,#FF0000};
 
 View view;
 

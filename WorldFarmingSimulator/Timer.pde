@@ -1,4 +1,4 @@
-class Timer { //<>//
+class Timer { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   int timeInSec = 0;
   int interval = 0;
   double lastTime = millis();
@@ -12,27 +12,30 @@ class Timer { //<>//
   int type = 0; //normal, ress, building, troops
   boolean repeat = false;
   boolean lvlUp = false;
+  boolean isActive = false;
   int ressType = -1;
   int startLvl = 0;
-  
+
   Timer(int time) {
     timeInSec= time;
-
+    isActive = true;
   }
   Timer(int p, int v) {
     aPlayer = p;
     aVill = v;
+    isActive = true;
   }
 
   Timer( boolean repeat) {
     this.repeat = repeat;
-
+    isActive = true;
   }
 
   void addTimer(int duration) {
     timeInSec = duration;
     interval = duration;
     type = 0;
+    isActive = true;
   }
   void addRessTimer(int duration, Rohstoffeld _ress) {
     timeInSec = duration;
@@ -41,6 +44,8 @@ class Timer { //<>//
     type = 1;
     ressType = ress.Typ;
     startLvl = ress.level;
+    isActive = true; //<>// //<>//
+    //saveJSON();
   }
   void addBuildingTimer(int duration, Building _build, Dorf vill, boolean lvlUp) {
     timeInSec = duration;
@@ -51,54 +56,61 @@ class Timer { //<>//
     type = 2;
     buildingID = build.id;
     startLvl = build.level;
+    isActive = true;
+    //saveJSON();
   }
   void addCultureTimer(int duration, Spieler player, Dorf village) {
     timeInSec = duration;
     interval = duration;
     type = 3;
     this.player = player;
+    isActive = true;
     this.village = village;
+    //saveJSON();
   }
 
   boolean update() {
-    if (timeInSec<=0) { //<>//
+    if (isActive == false)
+      return false;
+    if (timeInSec<=0) {
       if (repeat == true) {
-        timeInSec = interval;
+        //timeInSec = interval;
         return intervalRestarted();
-      } else
-        return false;
+      }
     }
-    if (millis()-lastTime>1000) {
+    if (millis() - lastTime >= 1000) {
       timeInSec--;
       lastTime = millis();
-      if (timeInSec<=0) {
-        if (type == 1) {
-          ress.levelUp();
-          ress.toLvl = false;
-        } else if (type == 2) {
-          if (lvlUp == false) {
-            village.c_BuildingManager.A_buildings.add(build);
-            int[] c = getInitCost(build.id);
-            //village.c_RessourceManager.storage.substractCost(c);
-            village.c_RessourceManager.a_CulturePointsPerDay += c[Kultur];
-            village.c_BuildingManager.updateBuildingLvlUp();
-            village.population += c[Bewohner];
-          } else {
-            build.levelUp();
-          }
-          if (build.S_name == "Rohstofflager")
-            village.c_RessourceManager.storage.maxCapacity += int(build.findUpgrade());
-          else if (build.S_name == "Kornspeicher")
-            village.c_RessourceManager.storage.maxKorn += int(build.findUpgrade());
-          build.toLvl = false;
+    }
+    if (timeInSec<=0) {
+      if (type == 1) {
+        ress.levelUp();
+        ress.toLvl = false;
+      } else if (type == 2) {
+        if (lvlUp == false) {
+          village.c_BuildingManager.A_buildings.add(build);
+          int[] c = getInitCost(build.id);
+          //village.c_RessourceManager.storage.substractCost(c);
+          village.c_RessourceManager.a_CulturePointsPerDay += c[Kultur];
+          village.c_BuildingManager.updateBuildingLvlUp();
+          village.population += c[Bewohner];
+        } else {
+          build.levelUp();
         }
+        if (build.S_name == "Rohstofflager")
+          village.c_RessourceManager.storage.maxCapacity += int(build.findUpgrade());
+        else if (build.S_name == "Kornspeicher")
+          village.c_RessourceManager.storage.maxKorn += int(build.findUpgrade());
+        build.toLvl = false;
       }
+      isActive = false;
+      saveJSON();
     }
     return false;
   }
 
   boolean intervalRestarted() {
-    
+
     return true;
   }
 

@@ -7,10 +7,10 @@
   [{
     "Month": 4,
     "Year": 2024,
-    "Minute": 58,
-    "Second": 18,
-    "Hour": 21,
-    "Day": 3
+    "Minute": 57,
+    "Second": 1,
+    "Hour": 12,
+    "Day": 9
   }],
   {
     "RessQuantity": [{
@@ -47,10 +47,11 @@
         "lvlUp": false,
         "Village": 0,
         "repeat": false,
-        "timeInSec": -490,
+        "timeInSec": -422917,
         "interval": 0,
         "type": 0,
         "startLvl": 0,
+        "isActive": false,
         "BuildingID": 0
       },
       {
@@ -59,10 +60,11 @@
         "lvlUp": false,
         "Village": 0,
         "repeat": false,
-        "timeInSec": -490,
+        "timeInSec": -422917,
         "interval": 0,
         "type": 0,
         "startLvl": 0,
+        "isActive": false,
         "BuildingID": 0
       },
       {
@@ -71,10 +73,11 @@
         "lvlUp": false,
         "Village": 0,
         "repeat": false,
-        "timeInSec": -490,
+        "timeInSec": -422917,
         "interval": 0,
         "type": 0,
         "startLvl": 0,
+        "isActive": false,
         "BuildingID": 0
       }
     ],

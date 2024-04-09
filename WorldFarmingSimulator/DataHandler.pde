@@ -1,4 +1,4 @@
-void saveJSON() { //<>// //<>//
+void saveJSON() { //<>// //<>// //<>//
   /* For each player */
   for (int p = 0; p < 2; p++) {
     JSONArray pArray = new JSONArray();
@@ -30,7 +30,7 @@ JSONArray saveVillTimer(int p, int v) {
   for (int d = 0; d < a_player[p].doerfer.get(v).timer.length; d++) {
     Dorf dorf = a_player[p].doerfer.get(v);
     for (int t = 0; t < dorf.timer.length; t++) {
-      String[] names = {"timeInSec", "interval", "lastTime", "type", "repeat", "lvlUp", "Player", "Village", "BuildingID", "RessType", "startLvl"};
+      String[] names = {"timeInSec", "interval", "lastTime", "type", "repeat", "lvlUp", "Player", "Village", "BuildingID", "RessType", "startLvl","isActive"};
       JSONObject Obj = new JSONObject();
       Obj.setInt(names[0], dorf.timer[t].timeInSec);
       Obj.setInt(names[1], dorf.timer[t].interval);
@@ -43,6 +43,7 @@ JSONArray saveVillTimer(int p, int v) {
       Obj.setInt(names[8], dorf.timer[t].buildingID);
       Obj.setInt(names[9], dorf.timer[t].ressType);
       Obj.setInt(names[10], dorf.timer[t].startLvl);
+      Obj.setBoolean(names[11], dorf.timer[t].isActive);
       array.setJSONObject(t, Obj);
     }
   }
@@ -50,7 +51,7 @@ JSONArray saveVillTimer(int p, int v) {
 }
 
 void loadVillTimer(int p, int v, JSONArray timer) {
-  String[] names = {"timeInSec", "interval", "lastTime", "type", "repeat", "lvlUp", "Player", "Village", "BuildingID", "RessType", "startLvl"};
+  String[] names = {"timeInSec", "interval", "lastTime", "type", "repeat", "lvlUp", "Player", "Village", "BuildingID", "RessType", "startLvl","isActive"};
   for (int t = 0; t < 3; t++) {
     JSONObject timerObj = timer.getJSONObject(t);
     a_player[p].doerfer.get(v).timer[t].timeInSec = timerObj.getInt(names[0]);
@@ -64,27 +65,40 @@ void loadVillTimer(int p, int v, JSONArray timer) {
     a_player[p].doerfer.get(v).timer[t].buildingID = timerObj.getInt(names[8]);
     a_player[p].doerfer.get(v).timer[t].ressType = timerObj.getInt(names[9]);
     a_player[p].doerfer.get(v).timer[t].startLvl = timerObj.getInt(names[10]);
+    a_player[p].doerfer.get(v).timer[t].isActive = timerObj.getBoolean(names[11]);
     setTimerObjects(p, v, t);
   }
 }
 
 void setTimerObjects(int p, int v, int t) {
   // ress
+  if (a_player[p].doerfer.get(v).timer[t].isActive == false)
+    return;
   if (a_player[p].doerfer.get(v).timer[t].type == 1) {
     for (int r = 0; r <  a_player[p].doerfer.get(v).c_RessourceManager.allRess[a_player[p].doerfer.get(v).timer[t].ressType].length; r++) {
-      if(a_player[p].doerfer.get(v).c_RessourceManager.allRess[a_player[p].doerfer.get(v).timer[t].ressType][r].level == a_player[p].doerfer.get(v).timer[t].startLvl){
+      if (a_player[p].doerfer.get(v).c_RessourceManager.allRess //<>//
+        [a_player[p].doerfer.get(v).timer[t].ressType] //<>//
+        [r].level == a_player[p].doerfer.get(v).timer[t].startLvl) { //<>//
         a_player[p].doerfer.get(v).timer[t].addRessTimer(a_player[p].doerfer.get(v).timer[t].timeInSec, a_player[p].doerfer.get(v).c_RessourceManager.allRess[a_player[p].doerfer.get(v).timer[t].ressType][r]);
         return;
       }
     }
-  } else if(a_player[p].doerfer.get(v).timer[t].type == 2){
-    if(a_player[p].doerfer.get(v).timer[t].lvlUp == false){      //new Building
-      a_player[p].doerfer.get(v).timer[t].addBuildingTimer(a_player[p].doerfer.get(v).timer[t].timeInSec, a_player[p].doerfer.get(v).c_BuildingManager.getBuildingClass(a_player[p].doerfer.get(v).timer[t].startLvl), a_player[p].doerfer.get(v), false);
-    } else{    //lvlup Building
-      for(int b = 0; b < a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.size(); b++){
-        if( a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.get(b).level == a_player[p].doerfer.get(v).timer[t].startLvl){
-          if( a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.get(b).id == a_player[p].doerfer.get(v).timer[t].buildingID){
-            a_player[p].doerfer.get(v).timer[t].addBuildingTimer(a_player[p].doerfer.get(v).timer[t].timeInSec, a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.get(b), a_player[p].doerfer.get(v), true);
+  } else if (a_player[p].doerfer.get(v).timer[t].type == 2) {  //<>// //<>// //<>//
+    if(a_player[p].doerfer.get(v).timer[t].timeInSec < 0.01 * millis() + 2) {
+      a_player[p].doerfer.get(v).timer[t].timeInSec = int(0.01 * millis() + 2);
+      a_player[p].doerfer.get(v).timer[t].interval = a_player[p].doerfer.get(v).timer[t].timeInSec;
+    } //<>// //<>//
+    if (a_player[p].doerfer.get(v).timer[t].lvlUp == false) {      //new Building //<>// //<>//
+      a_player[p].doerfer.get(v).timer[t].addBuildingTimer(
+        a_player[p].doerfer.get(v).timer[t].timeInSec, a_player[p].doerfer.get(v).c_BuildingManager.getBuildingClass(
+        a_player[p].doerfer.get(v).timer[t].buildingID)
+        , a_player[p].doerfer.get(v),
+        false);
+    } else {    //lvlup Building
+      for (int b = 0; b < a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.size(); b++) { //<>// //<>//
+        if ( a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.get(b).level == a_player[p].doerfer.get(v).timer[t].startLvl) { //<>// //<>//
+          if ( a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.get(b).id == a_player[p].doerfer.get(v).timer[t].buildingID) {
+            a_player[p].doerfer.get(v).timer[t].addBuildingTimer(a_player[p].doerfer.get(v).timer[t].timeInSec, a_player[p].doerfer.get(v).c_BuildingManager.A_buildings.get(b), a_player[p].doerfer.get(v), true); //<>// //<>//
             return;
           }
         }
@@ -108,10 +122,9 @@ void loadJSON() {
       a_player[p].doerfer.get(v).addRessources(quant.getInt("Holz"), quant.getInt("Lehm"), quant.getInt("Eisen"), quant.getInt("Getreide"));
       JSONArray build = vill.getJSONArray("Buildings");
       addBuildings(p, v, build);
-      loadVillTimer(p, v, vill.getJSONArray("Timer"));
       lvlUpRess(p, v, vill);
+      loadVillTimer(p, v, vill.getJSONArray("Timer"));
       fillStorage(p, v, vill);
-
       a_player[p].doerfer.get(v).c_BuildingManager.updateBuildingLvlUp();
       applyPassedTime(p, v, pArray);
     }
@@ -134,8 +147,8 @@ void applyPassedTime(int p, int v, JSONArray time) {
   updateTimerFromSave(p, v, passedSeconds);
 }
 
-void updateTimerFromSave(int p, int v, long passedSeconds){
-  for(int t = 0; t < 3; t++){
+void updateTimerFromSave(int p, int v, long passedSeconds) {
+  for (int t = 0; t < 3; t++) {
     a_player[p].doerfer.get(v).timer[t].timeInSec -= passedSeconds ;
   }
   a_player[p].doerfer.get(v).c_RessourceManager.a_timeSinceUpdate[4] = int(passedSeconds);

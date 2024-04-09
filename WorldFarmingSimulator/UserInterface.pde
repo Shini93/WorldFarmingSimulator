@@ -1,4 +1,5 @@
 Byte actualView = 0;    //Fields, Field, Village, Building, Map, Troops,
+PShape hexagon;
 void updatepg_overlay() {
   pg_overlay.beginDraw();
   pg_overlay.clear();
@@ -117,4 +118,57 @@ void drawLadebalken(int x, int y, int w, int h, float actual, float max, boolean
     pg_overlay.rect(x, y, round(w*(1-perc)), h);
   }
   pg_overlay.fill(0);
+}
+
+PShape createHexagon(PVector pos, int r) {
+  PShape hex = createShape();
+  hex.beginShape();
+  for (int i = 0; i < 6; i++) {
+    float angle = 2*PI * (float(i) / 6);
+    hex.vertex(pos.x + r * cos(angle), pos.y + r * sin(angle));
+  }
+  hex.vertex(pos.x + r, pos.y);
+  hex.endShape();
+  hexagon = hex;
+  return hex;
+}
+
+void hexagon(PVector pos, int r, color bg) {
+  PShape hex = createHexagon(pos, r);
+  hex.setFill(bg);
+  pg_overlay.shape(hex, 1, 1);
+}
+
+void hexagon(PVector pos, int r) {
+  PShape hex = createHexagon(pos, r);
+  pg_overlay.shape(hex, 1, 1);
+}
+
+PVector getHexPos(int count, int hexSize) {
+  PVector pos = new PVector();
+  int[] rings = {1, 7, 19, 37, 61};
+  int ring = 0;
+  PVector offset = new PVector(600, 300);
+
+  //Checks ring it is in
+  while ( count > rings[ring] ) {
+    ring++;
+  }
+
+  int r = int(ring * hexSize * 2);    //radius to the layer
+  if ( ring > 0) {
+    for(int i = 1; i < ring + 1; i ++){
+      if(count % ring  == i)
+        r -= 30;
+    }
+  }
+  int outerLayer = ring * 6;
+  float angle = 0;
+  if (outerLayer > 0)
+    angle = (float( count - outerLayer) / float(outerLayer)) * 2 * PI + (PI/6);
+  else
+    angle = 0;
+  pos = new PVector(offset.x + r * cos(angle), offset.y + r * sin(angle));
+  //PVector pos =  new PVector( 150 + 100 * ( k + 1 ), ressSize + 100 * ( nr + 1) - ressSize * dy);
+  return pos;
 }

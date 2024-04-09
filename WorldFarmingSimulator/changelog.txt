@@ -1,7 +1,11 @@
+0.5:
+-Changed Ressource layout and calls
+
 0.4:
 -Added timer with buildings and ressources to JSON
 -Can load timer now
 -Calculates ressources and village timer since newstart
+-Added hexagon function 
 
 0.3:
 -Fixed problem with adding new building

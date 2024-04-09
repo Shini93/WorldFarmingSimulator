@@ -1,4 +1,4 @@
-/**************************** //<>// //<>// //<>//
+/**************************** //<>// //<>// //<>// //<>//
  *Manages all Buildings
  *Upgrades
  *accessing right buildings
@@ -69,7 +69,6 @@ class BuildingManager {
         if (mouseY > pos.y - 20 && mouseY < pos.y + 20) {
           a_player[activePlayer].doerfer.get(a_player[activePlayer].activeVillage).activeBuilding = A_buildings.get(b);
           view.selView = 3;
-          println(A_buildings.get(b).S_name);
           return true;
         }
       }
@@ -100,7 +99,7 @@ class BuildingManager {
       else if (building.equals("Kornspeicher"))
         a_player[Player].doerfer.get(Village).c_RessourceManager.storage.maxKorn += int(newBuilding.findUpgrade());
     
-     //<>//
+     //<>// //<>//
     for (int l = 0; l < neededLevel; l++) {
       a_player[Player].doerfer.get(Village).c_BuildingManager.A_buildings.get(a_player[Player].doerfer.get(Village).c_BuildingManager.A_buildings.size()-1).levelUpNoCost();
       
@@ -155,7 +154,7 @@ int[] getInitCost(int id) {
     cost[2] = 150;
     cost[3] = 170;
     cost[4] = 2;
-    cost[5] = 200;
+    cost[5] = 10;
     cost[Kultur] = 3;
   } else if (id == 2) {
     cost[0] = 200;
