@@ -1,0 +1,103 @@
+[
+  {
+    "villages": 1,
+    "fallenTroops": 0,
+    "culture": 0
+  },
+  [{
+    "Month": 4,
+    "Year": 2024,
+    "Minute": 57,
+    "Second": 1,
+    "Hour": 12,
+    "Day": 9
+  }],
+  {
+    "RessQuantity": [{
+      "Getreide": 6,
+      "Eisen": 4,
+      "Holz": 4,
+      "Lehm": 4
+    }],
+    "RessLevel_1": [{
+      "ID_2": 0,
+      "ID_3": 0,
+      "ID_0": 0,
+      "ID_1": 0
+    }],
+    "RessLevel_0": [{
+      "ID_2": 0,
+      "ID_3": 0,
+      "ID_0": 0,
+      "ID_1": 0
+    }],
+    "village ID": 0,
+    "RessLevel_3": [{
+      "ID_4": 0,
+      "ID_5": 0,
+      "ID_2": 0,
+      "ID_3": 0,
+      "ID_0": 0,
+      "ID_1": 0
+    }],
+    "Timer": [
+      {
+        "Player": 1,
+        "RessType": -1,
+        "lvlUp": false,
+        "Village": 0,
+        "repeat": false,
+        "timeInSec": -422917,
+        "interval": 0,
+        "type": 0,
+        "startLvl": 0,
+        "isActive": false,
+        "BuildingID": 0
+      },
+      {
+        "Player": 1,
+        "RessType": -1,
+        "lvlUp": false,
+        "Village": 0,
+        "repeat": false,
+        "timeInSec": -422917,
+        "interval": 0,
+        "type": 0,
+        "startLvl": 0,
+        "isActive": false,
+        "BuildingID": 0
+      },
+      {
+        "Player": 1,
+        "RessType": -1,
+        "lvlUp": false,
+        "Village": 0,
+        "repeat": false,
+        "timeInSec": -422917,
+        "interval": 0,
+        "type": 0,
+        "startLvl": 0,
+        "isActive": false,
+        "BuildingID": 0
+      }
+    ],
+    "Ress": [{
+      "Getreide": 800,
+      "Eisen": 800,
+      "Holz": 800,
+      "Lehm": 800
+    }],
+    "RessLevel_2": [{
+      "ID_2": 0,
+      "ID_3": 0,
+      "ID_0": 0,
+      "ID_1": 0
+    }],
+    "Buildings": [{
+      "0": "Hauptgebaude_0_0",
+      "buildingCount": "1"
+    }],
+    "Population": 0,
+    "CultureVill": 0
+  }
+]
