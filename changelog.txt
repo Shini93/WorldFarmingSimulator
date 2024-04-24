@@ -1,0 +1,45 @@
+0.7
+-Added Villages as a listview
+-Added multiple possible villages per person
+-ListView uses a slider and can hold pretty much infinite strings (villageNames)
+-Added map
+-Added some map functionality
+
+0.6
+-Buildings now have req. buildings, that they can be build.
+-New ressources per hour can be seen on lvl up page
+-overworked req. ressources for all buildings and ressourcefields
+-overworked lvl up costs needed as in travian
+-Fixed ressis to use
+-fixed level issues
+-minor graphic improvements for timer (now hh:mm:ss instead of s)
+
+0.5:
+-Changed Ressource layout and calls
+
+0.4:
+-Added timer with buildings and ressources to JSON
+-Can load timer now
+-Calculates ressources and village timer since newstart
+-Added hexagon function 
+
+0.3:
+-Fixed problem with adding new building
+-Added some JSON functionality
+--Saves buildings
+--Saves Ressis
+--Saves ressi quantities
+--Added time
+--Calculate seconds passed since last save
+-loads data from json
+-Added extra infos on screen
+
+0.2:
+
+-addBuilding now costs ressis
+-added function to substract cost from storage through function in storage
+-Colors now globally changable
+-Added culture point counter for village and player
+-Added timer for buildingmanager to check every X seconds the ressources instead of every frame
+-Added Ladebalken function for ressi (top right corner), as well as Ladebalken for timer
+-Added drawTimer functionality
