@@ -3,6 +3,7 @@ import java.util.Calendar;
  *Glob Variablen
  **********************/
  
+ //I will make comments next time I guess D:
 Map map;
 Spieler[] a_player = new Spieler[2];      //Vera & Tobi
 String[] ressName = {"Holz", "Lehm", "Eisen", "Korn"};
