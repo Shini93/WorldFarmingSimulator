@@ -84,17 +84,37 @@ class scrollList { //<>//
       float sx = maxX / (size.x / float(hFieldX)) - 1;
       int posY = round(size.y * percY * sy) + hFieldY;
       int posX = round(size.x * percX * sx) + hFieldX;
+      int px = round(pos.x + (y - 1) * hFieldX + posX);
+      int py = round(pos.y + ( r - 1 )* hFieldY +  posY);
+      int w = hFieldX;
+      int h = hFieldY;
+      
+      if(px + w > pos.x + size.x)
+        w = round(pos.x + size.x - px);
+      if(px < pos.x)
+        px = round(pos.x);
+      if(py + h > pos.y + size.y)
+        h = round(pos.y + size.y - py);
+      if(py < pos.y)
+        py = round(pos.y);
+       //<>//
       g.fill(c);
       if (strokeW > 0) {
         g.strokeWeight(strokeW);
         g.stroke(strokeC);
-        g.rect(pos.x + (y - 1) * hFieldX + posX, pos.y + ( r - 1 )* hFieldY +  posY, hFieldX, hFieldY);
+        g.rect(px, py, w, h);
       }
       g.fill(0);
-      int tW = round(textWidth(fields.get(y).get(r)));
-      int tH = round(textAscent() );
+      int tW = round(g.textWidth(fields.get(y).get(r)));
+      int tH = round(g.textAscent() + round(g.textDescent() ));
       int tPosX = round(0.5 * (hFieldX - tW));
-      g.text(fields.get(y).get(r), pos.x + (y - 1) * hFieldX + posX + tPosX, pos.y + r * hFieldY +  posY - tH);
+      if(px + tPosX + tW > size.x + pos.x)
+        return;
+      if(py < pos.y)
+        return;
+      if(py + 0.5*h + tH > pos.y + size.y)
+        return;
+      g.text(fields.get(y).get(r), px + tPosX, py + 0.5*h +tH );
     }
   }
 
@@ -119,14 +139,13 @@ class scrollList { //<>//
     float sx = maxX / (size.x / float(hFieldX)) - 1;
     float bottom = (size.y / (hFieldY)) * (1 - sy*percY);
     float right = (size.x / hFieldX) * (1 - sx*percX);
-    if (nr + 1 > bottom)    //bottom blend out
+    if (nr + 0 > bottom)    //bottom blend out
       return false;
-    if (nr  < bottom - (size.y / (hFieldY)))    //bottom blend out
+    if (nr + 1  < bottom - (size.y / (hFieldY)))    //bottom blend out
       return false;
-
-    if (r + 1 > right)    //bottom blend out
+    if (r + 0 > right)    //bottom blend out
       return false;
-    if (r  < right - (size.x / hFieldX) )    //bottom blend out
+    if (r + 1  < right - (size.x / hFieldX) )    //bottom blend out
       return false;
     return true;
   }
@@ -161,6 +180,7 @@ class scrollList { //<>//
         }
       }
     }
+    println(id);
     return id;
   }
 }

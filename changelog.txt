@@ -4,6 +4,7 @@
 -ListView uses a slider and can hold pretty much infinite strings (villageNames)
 -Added map
 -Added some map functionality
+-fixed some scrollList bugs
 
 0.6
 -Buildings now have req. buildings, that they can be build.

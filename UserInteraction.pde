@@ -3,10 +3,12 @@ void mouseClicked() {
     return;
   if (sc_findBuilding() == true)
     return;
-  if (sc_findBuildingToBuild()== true)
+  if (sc_findBuildingToBuild() == true)
     return;
+  if(view.selView == view.mapSelect){
+     println(map.list.itemClicked());
+  }
   int village = a_player[activePlayer].list.itemClicked()[0];
-  println(village);
   if(village >= 0){
     a_player[activePlayer].activeVillage = village;
   }

@@ -59,7 +59,7 @@ void setup() {
   //fullScreen(1);
   view = new View(0);
   loadMap();
-  loadPlayer(); //<>//
+  loadPlayer();
   pg_overlay = createGraphics(width, height);
 
   debugAddValues();
